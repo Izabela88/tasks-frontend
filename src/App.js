@@ -1,7 +1,9 @@
+import Tiles from "./components/Tiles";
+
 function App() {
   return (
     <div>
-      <h1>Hello!</h1>
+      <Tiles />
     </div>
   );
 }
