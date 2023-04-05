@@ -79,6 +79,7 @@ function App() {
   return (
     <div>
       <TileList tiles={tiles} />
+      <div className="container mt-5"></div>
     </div>
   );
 }
