@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-function Task({ task, text }) {
+function Task({ task }) {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
