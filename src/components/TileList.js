@@ -3,7 +3,7 @@ import Tile from "./Tile";
 function TileList({ tiles }) {
   return (
     <div
-      style={{ margin: "auto", gap: "10px" }}
+      style={{ margin: "auto", gap: "10px", width: "100%" }}
       className="container row row-cols-3 mt-5"
     >
       {tiles.map((tile) => (
