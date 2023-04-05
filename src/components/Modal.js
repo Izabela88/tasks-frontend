@@ -12,13 +12,10 @@ function MyModal(props) {
       centered
     >
       <Modal.Body>
-        <Task
-          task={props.task}
-          tile_id={props.tile_id}
-          order={props.order}
-          description={props.description}
-          task_type={props.task_type}
-        />
+        <h3 className="mb-4 mt-3 text-center">
+          {props.task ? "Edit" : "Create New"} Task
+        </h3>
+        <Task task={props.task} tile_id={props.tile_id} />
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
