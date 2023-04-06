@@ -11,7 +11,7 @@ function TileList() {
       .catch((err) => {
         console.error(err.message);
       });
-  });
+  }, []);
 
   return (
     <div

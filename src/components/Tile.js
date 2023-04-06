@@ -17,7 +17,11 @@ function Tile({ tile }) {
   };
 
   const handleDeleteTile = () => {
-    console.log("Trash icon clicked");
+    fetch(`http://localhost:8000/api/tiles/${tile.id}/`, { method: "DELETE" })
+      .then((response) => console.log(response))
+      .catch((err) => {
+        console.error(err.message);
+      });
   };
 
   const handleModal = (task, show) => {
