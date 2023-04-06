@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import Task from "./Task";
 
 function MyModal(props) {
-  console.log(props);
   return (
     <Modal
       {...props}
