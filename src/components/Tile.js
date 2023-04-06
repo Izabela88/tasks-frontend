@@ -9,20 +9,35 @@ import Button from "react-bootstrap/Button";
 import { GlobalContext } from "../context/GlobalState";
 
 function Tile({ tile }) {
-  const [status, setStatus] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [taskModal, setTaskModal] = useState(null);
-  const { deleteTile } = useContext(GlobalContext);
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
+  const { deleteTile, updateTile } = useContext(GlobalContext);
 
   const handleDeleteTile = () => {
     fetch(`http://localhost:8000/api/tiles/${tile.id}/`, { method: "DELETE" })
-      .then((response) => deleteTile(tile.id))
+      .then((response) =>
+        response.ok ? deleteTile(tile.id) : Promise.reject(response)
+      )
       .catch((err) => {
-        console.error(err.message);
+        console.error(err);
+      });
+  };
+
+  const handleUpdateTileStatus = (status) => {
+    fetch(`http://localhost:8000/api/tiles/${tile.id}/`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: status }),
+    })
+      .then((response) =>
+        response
+          .json()
+          .then((data) =>
+            response.ok ? updateTile(data, tile) : Promise.reject(data)
+          )
+      )
+      .catch((err) => {
+        console.error(err);
       });
   };
 
@@ -86,13 +101,14 @@ function Tile({ tile }) {
           <Form.Group controlId="status">
             <Form.Control
               as="select"
-              value={status}
-              onChange={handleStatusChange}
+              onChange={(e) => {
+                handleUpdateTileStatus(e.target.value);
+              }}
             >
               <option>Change status</option>
-              <option value="pending">Live</option>
-              <option value="pending">Pending</option>
-              <option value="archived">Archived</option>
+              <option value="LIVE">Live</option>
+              <option value="PENDING">Pending</option>
+              <option value="ARCHIVED">Archived</option>
             </Form.Control>
           </Form.Group>
         </div>

@@ -17,7 +17,7 @@ function TileList() {
           )
       )
       .catch((err) => {
-        console.error(err.message);
+        console.error(err);
       });
   };
   useEffect(() => {
@@ -37,7 +37,7 @@ function TileList() {
           .then((data) => (response.ok ? addTile(data) : Promise.reject(data)))
       )
       .catch((err) => {
-        console.error(err.message);
+        console.error(err);
       });
   };
 
