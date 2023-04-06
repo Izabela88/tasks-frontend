@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import { FaTrash } from "react-icons/fa";
 import MyModal from "./Modal";
-
+import { format } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -11,8 +11,6 @@ function Tile({ tile }) {
   const [status, setStatus] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [taskModal, setTaskModal] = useState(null);
-
-  const currentDate = new Date().toLocaleString();
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
@@ -26,6 +24,8 @@ function Tile({ tile }) {
     setTaskModal(task);
     setModalShow(show);
   };
+
+  const formattedTileDate = format(new Date(tile.created_at), "yyyy-MM-dd");
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -92,7 +92,7 @@ function Tile({ tile }) {
         </div>
       </Card.Body>
       <Card.Footer className="d-flex justify-content-between align-items-center">
-        <div>{currentDate}</div>
+        <div>{formattedTileDate}</div>
         <div style={{ cursor: "pointer" }} onClick={handleDeleteTile}>
           <FaTrash />
         </div>
