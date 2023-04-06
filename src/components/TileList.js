@@ -1,13 +1,13 @@
 import Tile from "./Tile";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
 
 function TileList() {
-  const [tiles, setTiles] = useState([]);
-
+  const { refreshTiles, tiles } = useContext(GlobalContext);
   useEffect(() => {
     fetch("http://localhost:8000/api/tiles/")
       .then((response) => response.json())
-      .then((tilesDada) => setTiles(tilesDada))
+      .then((tilesDada) => refreshTiles(tilesDada))
       .catch((err) => {
         console.error(err.message);
       });
