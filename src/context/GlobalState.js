@@ -17,8 +17,14 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const deleteTile = (id) => {
+    dispatch({ type: "DELETE_TILE", payload: id });
+  };
+
   return (
-    <GlobalContext.Provider value={{ tiles: state.tiles, refreshTiles }}>
+    <GlobalContext.Provider
+      value={{ tiles: state.tiles, refreshTiles, deleteTile }}
+    >
       {children}
     </GlobalContext.Provider>
   );

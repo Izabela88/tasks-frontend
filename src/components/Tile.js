@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import { FaTrash } from "react-icons/fa";
@@ -6,11 +6,13 @@ import MyModal from "./Modal";
 import { format } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { GlobalContext } from "../context/GlobalState";
 
 function Tile({ tile }) {
   const [status, setStatus] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [taskModal, setTaskModal] = useState(null);
+  const { deleteTile } = useContext(GlobalContext);
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
@@ -18,7 +20,7 @@ function Tile({ tile }) {
 
   const handleDeleteTile = () => {
     fetch(`http://localhost:8000/api/tiles/${tile.id}/`, { method: "DELETE" })
-      .then((response) => console.log(response))
+      .then((response) => deleteTile(tile.id))
       .catch((err) => {
         console.error(err.message);
       });

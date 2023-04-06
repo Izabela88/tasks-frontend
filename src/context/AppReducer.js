@@ -5,6 +5,11 @@ export default (state, action) => {
         ...state,
         tiles: action.payload,
       };
+    case "DELETE_TILE":
+      return {
+        ...state,
+        tiles: state.tiles.filter((tile) => tile.id !== action.payload),
+      };
     default:
       return state;
   }
