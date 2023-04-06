@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import { FaTrash } from "react-icons/fa";
 import MyModal from "./Modal";
-import { format } from "date-fns";
+import { formatISO9075 } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { GlobalContext } from "../context/GlobalState";
@@ -31,7 +31,7 @@ function Tile({ tile }) {
     setModalShow(show);
   };
 
-  const formattedTileDate = format(new Date(tile.created_at), "yyyy-MM-dd");
+  const formattedTileDate = formatISO9075(new Date(tile.created_at));
 
   return (
     <Card style={{ width: "18rem" }}>
