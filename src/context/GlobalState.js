@@ -25,9 +25,22 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: "ADD_TILE", payload: tile });
   };
 
+  const updateTile = (updatedTile, legacyTile) => {
+    dispatch({
+      type: "UPDATE_TILE",
+      payload: { updatedTile: updatedTile, legacyTile: legacyTile },
+    });
+  };
+
   return (
     <GlobalContext.Provider
-      value={{ tiles: state.tiles, refreshTiles, deleteTile, addTile }}
+      value={{
+        tiles: state.tiles,
+        refreshTiles,
+        deleteTile,
+        addTile,
+        updateTile,
+      }}
     >
       {children}
     </GlobalContext.Provider>

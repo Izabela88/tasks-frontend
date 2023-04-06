@@ -15,6 +15,15 @@ export default (state, action) => {
         ...state,
         tiles: [action.payload, ...state.tiles],
       };
+
+    case "UPDATE_TILE":
+      const idx = state.tiles
+        .map((tile) => tile.id)
+        .indexOf(action.payload.legacyTile.id);
+      state.tiles[idx] = action.payload.updatedTile;
+      return {
+        ...state,
+      };
     default:
       return state;
   }
