@@ -10,6 +10,11 @@ export default (state, action) => {
         ...state,
         tiles: state.tiles.filter((tile) => tile.id !== action.payload),
       };
+    case "ADD_TILE":
+      return {
+        ...state,
+        tiles: [action.payload, ...state.tiles],
+      };
     default:
       return state;
   }
