@@ -113,14 +113,18 @@ function Task({ task, tileId }) {
               name="task_type"
               onChange={(e) => setFormTaskType(e.currentTarget.value)}
               value={formTaskType}
+              required
             >
-              <option>Select Task Type</option>
+              <option value="">Select Task Type</option>
               {taskTypes.map((type) => (
                 <option key={type.name} value={type.name}>
                   {type.name}
                 </option>
               ))}
             </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              This field is required.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Row} md="4" controlId="validationCustom01">
