@@ -15,7 +15,7 @@ import "react-clock/dist/Clock.css";
 function Tile({ tile }) {
   const [modalShow, setModalShow] = useState(false);
   const [taskModal, setTaskModal] = useState(null);
-  const { deleteTile, updateTile, refreshTaskTypes } =
+  const { deleteTile, updateTile, refreshTaskTypes, deleteTask } =
     useContext(GlobalContext);
 
   const handleDeleteTile = () => {
@@ -61,6 +61,16 @@ function Tile({ tile }) {
       });
   };
 
+  const handleDeleteTask = (taskId) => {
+    fetch(`http://localhost:8000/api/tasks/${taskId}/`, { method: "DELETE" })
+      .then((response) =>
+        response.ok ? deleteTask(taskId, tile.id) : Promise.reject(response)
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   const handleModal = (task, show) => {
     getTaskTypes();
     setTaskModal(task);
@@ -84,13 +94,21 @@ function Tile({ tile }) {
               key={task.id}
             >
               <Carousel.Caption>
-                <h3>{task.title}</h3>
-                <Button
-                  onClick={() => handleModal(task, true)}
-                  className="btn-outline-dark"
-                >
-                  VIEW
-                </Button>
+                <h5>{task.title}</h5>
+                <div className="d-flex justify-content-around align-items-center">
+                  <Button
+                    onClick={() => handleModal(task, true)}
+                    className="btn-outline-dark"
+                  >
+                    VIEW
+                  </Button>
+                  <Button
+                    onClick={() => handleDeleteTask(task.id)}
+                    className="btn-outline-dark btn-danger"
+                  >
+                    <FaTrash />
+                  </Button>
+                </div>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
