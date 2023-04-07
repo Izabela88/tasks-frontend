@@ -5,6 +5,12 @@ export default (state, action) => {
         ...state,
         tiles: action.payload,
       };
+
+    case "REFRESH_TASK_TYPES":
+      return {
+        ...state,
+        taskTypes: action.payload,
+      };
     case "DELETE_TILE":
       return {
         ...state,
@@ -21,6 +27,16 @@ export default (state, action) => {
         .map((tile) => tile.id)
         .indexOf(action.payload.legacyTile.id);
       state.tiles[idx] = action.payload.updatedTile;
+      return {
+        ...state,
+      };
+
+    case "ADD_TASK":
+      state.tiles.forEach((tile) => {
+        if (tile.id === action.payload.tileId) {
+          tile.tasks.push(action.payload.task);
+        }
+      });
       return {
         ...state,
       };

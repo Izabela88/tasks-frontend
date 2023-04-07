@@ -3,6 +3,7 @@ import AppReducer from "./AppReducer";
 
 const initialState = {
   tiles: [],
+  taskTypes: [],
 };
 
 export const GlobalContext = createContext(initialState);
@@ -14,6 +15,13 @@ export const GlobalProvider = ({ children }) => {
     dispatch({
       type: "REFRESH_TILES",
       payload: tiles,
+    });
+  };
+
+  const refreshTaskTypes = (taskTypes) => {
+    dispatch({
+      type: "REFRESH_TASK_TYPES",
+      payload: taskTypes,
     });
   };
 
@@ -32,14 +40,21 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const addTask = (task, tileId) => {
+    dispatch({ type: "ADD_TASK", payload: { task: task, tileId: tileId } });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         tiles: state.tiles,
+        taskTypes: state.taskTypes,
         refreshTiles,
         deleteTile,
         addTile,
         updateTile,
+        addTask,
+        refreshTaskTypes,
       }}
     >
       {children}
