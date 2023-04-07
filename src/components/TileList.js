@@ -1,5 +1,5 @@
 import Tile from "./Tile";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import Button from "react-bootstrap/Button";
 

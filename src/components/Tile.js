@@ -11,7 +11,8 @@ import { GlobalContext } from "../context/GlobalState";
 function Tile({ tile }) {
   const [modalShow, setModalShow] = useState(false);
   const [taskModal, setTaskModal] = useState(null);
-  const { deleteTile, updateTile } = useContext(GlobalContext);
+  const { deleteTile, updateTile, refreshTaskTypes } =
+    useContext(GlobalContext);
 
   const handleDeleteTile = () => {
     fetch(`http://localhost:8000/api/tiles/${tile.id}/`, { method: "DELETE" })
@@ -41,7 +42,22 @@ function Tile({ tile }) {
       });
   };
 
+  const getTaskTypes = () => {
+    fetch("http://localhost:8000/api/task-types/")
+      .then((response) =>
+        response
+          .json()
+          .then((data) =>
+            response.ok ? refreshTaskTypes(data) : Promise.reject(data)
+          )
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   const handleModal = (task, show) => {
+    getTaskTypes();
     setTaskModal(task);
     setModalShow(show);
   };
