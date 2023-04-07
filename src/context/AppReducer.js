@@ -40,6 +40,18 @@ export default (state, action) => {
       return {
         ...state,
       };
+
+    case "DELETE_TASK":
+      state.tiles.forEach((tile) => {
+        if (tile.id === action.payload.tileId) {
+          tile.tasks = tile.tasks.filter(
+            (task) => task.id !== action.payload.taskId
+          );
+        }
+      });
+      return {
+        ...state,
+      };
     default:
       return state;
   }

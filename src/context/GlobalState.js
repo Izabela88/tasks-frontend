@@ -44,6 +44,13 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: "ADD_TASK", payload: { task: task, tileId: tileId } });
   };
 
+  const deleteTask = (taskId, tileId) => {
+    dispatch({
+      type: "DELETE_TASK",
+      payload: { taskId: taskId, tileId: tileId },
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -55,6 +62,7 @@ export const GlobalProvider = ({ children }) => {
         updateTile,
         addTask,
         refreshTaskTypes,
+        deleteTask,
       }}
     >
       {children}
