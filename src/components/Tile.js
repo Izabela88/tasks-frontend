@@ -7,6 +7,10 @@ import { formatISO9075 } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { GlobalContext } from "../context/GlobalState";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 function Tile({ tile }) {
   const [modalShow, setModalShow] = useState(false);
@@ -24,11 +28,12 @@ function Tile({ tile }) {
       });
   };
 
-  const handleUpdateTileStatus = (status) => {
+  const handleUpdateTile = (dataToUpdate) => {
+    console.log(JSON.stringify(dataToUpdate));
     fetch(`http://localhost:8000/api/tiles/${tile.id}/`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: status }),
+      body: JSON.stringify(dataToUpdate),
     })
       .then((response) =>
         response
@@ -118,7 +123,7 @@ function Tile({ tile }) {
             <Form.Control
               as="select"
               onChange={(e) => {
-                handleUpdateTileStatus(e.target.value);
+                handleUpdateTile({ status: e.target.value });
               }}
             >
               <option>Change status</option>
@@ -129,8 +134,24 @@ function Tile({ tile }) {
           </Form.Group>
         </div>
       </Card.Body>
+      <Card.Footer>
+        <div>
+          <span>Launch Date: </span>
+          <DateTimePicker
+            onChange={(e) => {
+              handleUpdateTile({ launch_date: e });
+            }}
+            value={tile.launch_date}
+          />
+        </div>
+      </Card.Footer>
       <Card.Footer className="d-flex justify-content-between align-items-center">
-        <div>{formattedTileDate}</div>
+        <div>
+          <span>Created At: </span>
+          <br />
+
+          {formattedTileDate}
+        </div>
         <div style={{ cursor: "pointer" }} onClick={handleDeleteTile}>
           <FaTrash />
         </div>
