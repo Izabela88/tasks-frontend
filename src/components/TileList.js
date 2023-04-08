@@ -53,6 +53,8 @@ function TileList() {
     return tiles;
   };
 
+  const filteredTiles = filterTiles();
+
   return (
     <>
       <div className="row">
@@ -93,14 +95,23 @@ function TileList() {
           </Form.Select>
         </Form.Group>
       </div>
-      <div
-        style={{ margin: "auto", gap: "10px", width: "100%" }}
-        className="container row row-cols-3 mt-5"
-      >
-        {filterTiles().map((tile) => (
-          <Tile key={tile.id} tile={tile} status={tile.status} />
-        ))}
-      </div>
+      {filteredTiles.length < 1 ? (
+        <div
+          style={{ width: "100%", height: "50vh" }}
+          className="container d-flex justify-content-center align-items-center"
+        >
+          <p className="fs-3">NO TILES TO SHOW</p>
+        </div>
+      ) : (
+        <div
+          style={{ margin: "auto", gap: "10px", width: "100%" }}
+          className="container row row-cols-3 mt-5"
+        >
+          {filteredTiles.map((tile) => (
+            <Tile key={tile.id} tile={tile} status={tile.status} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
