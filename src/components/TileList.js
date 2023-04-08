@@ -74,7 +74,9 @@ function TileList() {
 
       <div className="row m-4">
         <Form.Group as={Row} md="4" className="col-3">
-          <Form.Label style={{ width: "100px" }}>Filter Tiles</Form.Label>
+          <Form.Label style={{ width: "300px" }}>
+            FILTER TILES BY STATUS
+          </Form.Label>
           <Form.Select
             name="filterTiles"
             onChange={(e) => setTilesFilter(e.currentTarget.value)}
